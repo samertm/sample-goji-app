@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 
@@ -9,6 +10,23 @@ import (
 	"github.com/zenazn/goji"
 	"github.com/zenazn/goji/web"
 )
+
+var errorTemplate = initializeTemplate("templates/error.html")
+
+type errorTemplateVars struct {
+	Code    int
+	Message string
+}
+
+func initializeTemplate(file string) *template.Template {
+	return template.Must(template.ParseFiles("templates/layout.html", file))
+}
+
+var indexTemplate = initializeTemplate("templates/index.html")
+
+type indexTemplateVars struct {
+	Name string
+}
 
 func serveIndex(c web.C, w http.ResponseWriter, r *http.Request) error {
 	s := getSession(c)
