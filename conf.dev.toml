@@ -1,4 +1,4 @@
-# TOML file for syncfbevents
+# TOML file for sample-goji-app.
 # This is used for dev stuff.
 BaseURL = "http://localhost:8000"
 PostgresDataSource = "sslmode=disable dbname=sga user=sga"

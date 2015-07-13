@@ -1,6 +1,6 @@
 # TOML file for sample-goji-app.
 # This file is used for the Docker container.
 BaseURL = "http://localhost:8000"
-PostgresDataSource = "sslmode=disable dbname=sga user=sga"
+PostgresDataSource = "sslmode=disable dbname=sga user=sga host=$POSTGRES_PORT_5432_TCP_ADDR"
 SessionKey = "11111111111111111111111111111111"
 OAuthStateString = "11111111111111111111111111111111"
