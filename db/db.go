@@ -5,7 +5,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"github.com/samertm/syncfbevents/conf"
+	"github.com/samertm/sample-goji-app/conf"
 )
 
 var DB *sqlx.DB = sqlx.MustConnect("postgres", conf.Config.PostgresDataSource)

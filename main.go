@@ -57,7 +57,7 @@ func serveAuthCallback(c web.C, w http.ResponseWriter, r *http.Request) error {
 
 func main() {
 	// Serve static files.
-	staticDirs := []string{"bower_components", "res"}
+	staticDirs := []string{"res"}
 	for _, d := range staticDirs {
 		static := web.New()
 		pattern, prefix := fmt.Sprintf("/%s/*", d), fmt.Sprintf("/%s/", d)
