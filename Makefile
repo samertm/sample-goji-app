@@ -1,8 +1,8 @@
 .PHONY: serve watch-serve db-reset test docker-deps docker-build docker-run deploy-deps deploy docker check-to
 
 serve:
-	go install github.com/samertm/sample-gosu-app
-	sample-gosu-app
+	go install github.com/samertm/sample-goji-app
+	sample-goji-app
 
 watch-serve:
 	$(shell while true; do $(MAKE) serve & PID=$$! ; echo $$PID ; inotifywait --exclude ".git" -r -e close_write . ; kill $$PID ; done)
@@ -30,13 +30,13 @@ docker: docker-build docker-run
 
 # Must specify TO.
 deploy-deps: check-to
-	rsync -azP . $(TO):~/sample-gosu-app
-	ssh $(TO) 'cd ~/sample-gosu-app && make docker-deps'
+	rsync -azP . $(TO):~/sample-goji-app
+	ssh $(TO) 'cd ~/sample-goji-app && make docker-deps'
 
 # Must specify TO.
 deploy: check-to
-	rsync -azP . $(TO):~/sample-gosu-app
-	ssh $(TO) 'cd ~/sample-gosu-app && make docker'
+	rsync -azP . $(TO):~/sample-goji-app
+	ssh $(TO) 'cd ~/sample-goji-app && make docker'
 
 check-to:
 	ifndef TO

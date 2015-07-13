@@ -1,4 +1,4 @@
-# TOML file for sample-gosu-app.
+# TOML file for sample-goji-app.
 # This file is used for the Docker container.
 BaseURL = "http://localhost:8000"
 PostgresDataSource = "sslmode=disable dbname=sga user=sga"

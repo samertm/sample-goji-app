@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/gorilla/sessions"
-	"github.com/samertm/sample-gosu-app/conf"
+	"github.com/samertm/sample-goji-app/conf"
 	"github.com/zenazn/goji/web"
 )
 
@@ -74,7 +74,7 @@ func (h handler) ServeHTTPC(c web.C, w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		if rv := recover(); rv != nil {
 			err = errors.New("handler panic")
-			logError(r, err, rv)
+			logError(c, r, err, rv)
 			handleError(w, r, err)
 		}
 	}()
@@ -85,7 +85,7 @@ func (h handler) ServeHTTPC(c web.C, w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, e.To, e.Code)
 			return
 		}
-		logError(r, err, nil)
+		logError(c, r, err, nil)
 		handleError(w, r, err)
 	}
 }
@@ -108,10 +108,14 @@ func handleError(w http.ResponseWriter, r *http.Request, err error) {
 	})
 }
 
-func logError(req *http.Request, err error, rv interface{}) {
+func logError(c web.C, req *http.Request, err error, rv interface{}) {
 	if err != nil {
 		var buf bytes.Buffer
-		fmt.Fprintf(&buf, "Error serving %s: %s\n", req.URL, err)
+		fmt.Fprintf(&buf, "Error serving %s: %s\n",
+			req.URL,
+			// SAMER: Wait for PR to merge.
+			//c.Env[web.MatchKey].(web.Match).Pattern.String(),
+			err)
 		if rv != nil {
 			fmt.Fprintln(&buf, rv)
 			buf.Write(debug.Stack())
